@@ -1,0 +1,4 @@
+[core]
+    remote = anime_recommendation
+['remote "anime_recommendation"']
+    url = gs://dvc-ml-ops-project-2/

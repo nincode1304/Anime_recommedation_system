@@ -1,0 +1,447 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito Sans', sans-serif;
+    /* background-image: url('https://wallpapercave.com/wp/wp6442841.jpg'); */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    background-color: #000; /* solid black background */
+    background-image: none; /* remove previous wallpaper */
+    color: #fff;
+}
+
+/* Soft overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 25, 0.6); /* 60% dark overlay */
+    z-index: -1;
+}
+
+
+/* Form Container */
+.form-container {
+    width: 90%;
+    max-width: 650px;
+    margin: 100px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+}
+
+/* Heading */
+.form-container h1 {
+    font-size: 2.5rem;
+    font-family: 'Zen Kurenaido', cursive;
+    margin-bottom: 20px;
+    color: #ffcc70;
+}
+
+/* Form Labels and Inputs */
+label {
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 8px;
+    color: #e6e6e6;
+}
+
+input[type="number"],input[type="text"]  {
+    width: 80%;
+    padding: 12px;
+    margin: 15px 0;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 5px #ffcc70;
+}
+
+/* Button */
+button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    background-color: #ffcc70;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #ffaa33;
+}
+
+/* Results */
+.results-container {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.07);
+    padding: 20px;
+    border-radius: 15px;
+    color: #fefefe;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.results-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    font-family: 'Zen Kurenaido', cursive;
+    color: #ffcc70;
+}
+
+.results-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.results-container li {
+    font-size: 1.1rem;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-container {
+        margin: 60px auto;
+        padding: 20px;
+    }
+
+    .form-container h1 {
+        font-size: 2rem;
+    }
+
+    input[type="number"], button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .results-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .results-container li {
+        font-size: 1rem;
+    }
+}
+
+/* === Anime Poster Strips === */
+.strip {
+    position: fixed;
+    width: 300%;
+    height: 33.333vh; /* Each strip takes 1/3rd of the screen height */
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    animation: scrollLeft linear infinite;
+    opacity: 0.6; /* Increased visibility */
+    z-index: -2;
+}
+
+.strip1 {
+    top: 0;
+    background-image: url('/static/images/strip1.png');
+    animation-duration: 60s;
+}
+
+.strip2 {
+    top: 33.333vh;
+    background-image: url('/static/images/strip2.png');
+    animation-duration: 80s;
+}
+
+.strip3 {
+    top: 66.666vh;
+    background-image: url('/static/images/strip3.png');
+    animation-duration: 100s;
+}
+
+
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-33.3%);
+    }
+}
+
+.card-selection {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.option-card {
+    width: 280px;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 2px solid transparent;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.option-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.option-card.active {
+    border-color: #ffcc70;
+    background: rgba(255, 204, 112, 0.15);
+}
+
+.responsive-trailer {
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.responsive-trailer iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.reviews-container {
+    margin: 40px auto;
+    max-width: 800px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 14px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-card {
+    background: #1f1f1f;
+    border-left: 5px solid #ffcc70;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.reviews-section {
+    margin: 40px auto;
+    max-width: 1000px;
+    padding: 20px;
+    text-align: center;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.review-card {
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    color: #eee;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInCard 0.6s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInCard {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.review-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(255, 204, 112, 0.4);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-weight: bold;
+    color: #ffcc70;
+    font-size: 0.95rem;
+}
+
+.review-text {
+    font-family: 'Zen Kurenaido', cursive;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.similar-section {
+    max-width: 1100px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.similar-anime-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.similar-anime-card {
+    width: 160px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.similar-anime-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(255, 204, 112, 0.4);
+}
+
+.similar-anime-card img {
+    width: 100%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.similar-anime-card p {
+    padding: 10px;
+    font-family: 'Zen Kurenaido', cursive;
+    font-size: 1rem;
+}
+
+
+  @media screen and (max-width: 768px) {
+  .anime-details-container, .similar-anime-container, .character-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .similar-anime-card, .character-card {
+    width: 90%;
+    margin: 10px 0;
+  }
+
+  .review-card {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+}
+.recommendation-card {
+    width: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1rem;
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(5px);
+    
+    /* ✨ Make cards responsive */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  
+    /* ✨ Allow height to expand with content */
+    height: auto;
+    min-height: 250px;
+  }
+.recommendation-card img {
+width: 100%;
+height: auto; /* ✨ keep aspect ratio */
+border-radius: 0.5rem;
+margin-bottom: 0.5rem;
+object-fit: cover;
+}
+
+.recommendation-card p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+.recommendation-section {
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  .spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #ff4f8b;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

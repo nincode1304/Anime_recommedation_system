@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+    <title>HYBRID ANIME RECOMMENDER SYSTEM</title>
+
+    {% if recommendations %}
+    <style>
+        form {
+            display: none;
+        }
+    </style>
+    {% endif %}
+</head>
+<body>
+    
+    <!-- Animated background poster strips -->
+    <div class="strip strip1"></div>
+    <div class="strip strip2"></div>
+    <div class="strip strip3"></div>
+
+    <div class="form-container">
+        <h1>Welcome to our ANIME RECOMMENDER SYSTEM</h1>
+
+        <!-- Multi-mode form -->
+        <form method="POST" id="mainForm" action="/">
+            <!-- Mode Selection Cards -->
+            <div class="card-selection">
+                <div class="option-card" data-mode="recommend">
+                    <h3>🎯 Feed Me Anime I’ll Love!</h3>
+                    <p>Let our hybrid engine pick the best anime for your taste.</p>
+                </div>
+                <div class="option-card" data-mode="search">
+                    <h3>🔍 Uncover the Anime Secrets!</h3>
+                    <p>Get images and info on any anime you like.</p>
+                </div>
+            </div>
+        
+            <input type="hidden" name="mode" id="modeInput" value="recommend">
+        
+            <!-- Conditional Inputs -->
+            <div id="userIDInput">
+                <label for="userID">Enter your User ID:</label>
+                <input type="number" id="userID" name="userID" required>
+            </div>
+        
+            <div id="animeNameInput" style="display:none;">
+                <label for="animeName">Enter Anime Name:</label>
+                <input type="text" id="animeName" name="animeName" required>
+            </div>
+        
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if recommendations %}
+            <div class="recommendation-section">
+                <h2 class="section-title">✨ Your Personalized Anime Recommendations</h2>
+                <div class="similar-anime-container">
+                    {% for anime in recommendations %}
+                    <a href="/search?anime_name={{ anime.title | urlencode }}" class="recommendation-card">
+                        <img src="{{ anime.image_url }}" alt="{{ anime.title }}">
+                        <p>{{ anime.title }}</p>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+
+    </div>
+    
+    <div id="loading-spinner" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- Mode Switching Script -->
+    <script>
+        const cards = document.querySelectorAll('.option-card');
+        const modeInput = document.getElementById('modeInput');
+        const userIDInput = document.getElementById('userIDInput');
+        const animeNameInput = document.getElementById('animeNameInput');
+        const mainForm = document.getElementById('mainForm');
+        const spinner = document.getElementById('loading-spinner');
+    
+        let selectedMode = 'recommend';
+    
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                cards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+    
+                selectedMode = card.getAttribute('data-mode');
+                modeInput.value = selectedMode;
+    
+                if (selectedMode === 'recommend') {
+                    userIDInput.style.display = 'block';
+                    animeNameInput.style.display = 'none';
+                    document.getElementById('userID').setAttribute('required', 'required');
+                    document.getElementById('animeName').removeAttribute('required');
+                    mainForm.setAttribute('action', '/');
+                } else {
+                    userIDInput.style.display = 'none';
+                    animeNameInput.style.display = 'block';
+                    document.getElementById('animeName').setAttribute('required', 'required');
+                    document.getElementById('userID').removeAttribute('required');
+                    mainForm.setAttribute('action', '/search');
+                }
+            });
+        });
+    
+        // Spinner on form submission
+        mainForm.addEventListener('submit', () => {
+            if (selectedMode === 'search') {
+                mainForm.setAttribute('action', '/search');
+            } else {
+                mainForm.setAttribute('action', '/');
+            }
+    
+            if (spinner) spinner.classList.remove('hidden');
+        });
+    
+        // Spinner on recommendation/similar anime card click
+        const animeCards = document.querySelectorAll('.recommendation-card, .similar-anime-card');
+        animeCards.forEach(card => {
+            card.addEventListener('click', () => {
+                if (spinner) spinner.classList.remove('hidden');
+            });
+        });
+    
+        // Default active card
+        document.querySelector('.option-card[data-mode="recommend"]').classList.add('active');
+    </script>
+    
+    
+      
+</body>
+</html>
